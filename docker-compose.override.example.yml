@@ -1,0 +1,8 @@
+version: '3'
+services:
+    rabbitmq:
+        ports:
+            # Management UI
+            - "15672:15672"
+            # AMQP
+            - "5672:5672"

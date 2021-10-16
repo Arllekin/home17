@@ -3,10 +3,14 @@ services:
     rabbitmq:
         restart: always
         image: rabbitmq:3.9.7-management
+        hostname: rabbitmq
         # !!! Use docker-compose.override.yml to bind ports
-#        volumes:
-#            # https://github.com/docker-library/rabbitmq/blob/7fa749a7be00243709c5a8acc2e9c33d9cd82093/3.7/ubuntu/docker-entrypoint.sh#L377-L383
-#            - ./docker/dev/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+        volumes:
+            # https://stackoverflow.com/a/62026712
+            # https://hub.docker.com/_/rabbitmq Chapter "Additional Configuration"
+            - ./docker/dev/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+        environment:
+            RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: '-rabbitmq_management load_definitions "/etc/rabbitmq/definitions.json"'
 
     php:
         build:

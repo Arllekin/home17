@@ -2,14 +2,31 @@ old_sound_rabbit_mq:
     connections:
         default:
             url: '%env(RABBITMQ_URL)%'
-#    producers:
-#        # use 'old_sound_rabbit_mq.task_producer' service to send data.
-#        task:
-#            connection:       default
-#            exchange_options: { name: 'task', type: direct }
-#    consumers:
-#        task:
-#            connection:       default
-#            exchange_options: { name: 'task', type: direct }
-#            queue_options:    { name: 'task'}
-#            callback:         App\Consumer\TaskConsumer
+
+    producers:
+        # use 'old_sound_rabbit_mq.task_producer' service to send data.
+        task:
+            connection: default
+            exchange_options: { name: 'task', type: direct }
+        # use 'old_sound_rabbit_mq.message_bus_producer' service to send data.
+        message_bus:
+            connection: default
+            exchange_options:
+                name: 'message_bus'
+                type: topic
+                arguments: { 'alternate-exchange': [ 'S', 'message_bus_dead_letter' ] }
+
+    consumers:
+        task:
+            connection: default
+            exchange_options: { name: 'task', type: direct }
+            queue_options: { name: 'task' }
+            callback: App\Consumer\DefaultConsumerCallback
+        message_bus_dead_letter:
+            connection: default
+            exchange_options: { name: 'message_bus_dead_letter', type: topic }
+            queue_options:
+                name: 'message_bus_dead_letter'
+                routing_keys:
+                    - '#'
+            callback: App\Consumer\DefaultConsumerCallback

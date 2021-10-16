@@ -33,3 +33,41 @@ DOCKER_COMPOSE__GROUP_ID=1000
 export DOCKER_COMPOSE__USER_ID=1000
 export DOCKER_COMPOSE__GROUP_ID=1000
 ```
+
+# Example how application works
+
+```bash
+student@hillel-php-advanced-2021[docker][/app]: bin/console hillel:task:publish 'Hello, RabbitMQ World!' -vvv
+2021-10-16 15:27:02 INFO      [app] Publishing message ...  ["message_body_raw" => "Hello, RabbitMQ World!"]
+2021-10-16 15:27:02 INFO      [app] Message was published  ["message_body_raw" => "Hello, RabbitMQ World!"]
+
+student@hillel-php-advanced-2021[docker][/app]: bin/console rabbitmq:consumer task -vvv
+2021-10-16 15:27:06 INFO      [app] Received message  ["message_body_raw" => "Hello, RabbitMQ World!"]
+```
+
+# Tips
+
+- Setup exchanges/bindings/queues in RabbitMQ
+```bash
+bin/console rabbitmq:setup-fabric
+```
+
+# PHPStorm plugins
+
+- https://plugins.jetbrains.com/plugin/7219-symfony-support
+
+# Useful links
+
+- https://getcomposer.org/
+- https://www.php.net/supported-versions
+- https://symfony.com/doc/current/index.html
+- https://www.enterpriseintegrationpatterns.com/patterns/messaging/
+- https://hub.docker.com/_/php
+- https://hub.docker.com/_/rabbitmq
+- https://www.rabbitmq.com/
+- https://www.rabbitmq.com/tutorials/tutorial-one-php.html
+- https://www.rabbitmq.com/tutorials/tutorial-two-php.html
+- https://www.rabbitmq.com/tutorials/tutorial-three-php.html
+- https://www.rabbitmq.com/tutorials/tutorial-five-php.html
+- https://www.rabbitmq.com/tutorials/tutorial-six-php.html
+- https://www.rabbitmq.com/tutorials/tutorial-seven-php.html

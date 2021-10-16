@@ -23,3 +23,17 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    Symfony\Bridge\Monolog\Formatter\ConsoleFormatter:
+        arguments:
+            -   format: "%%datetime%% %%start_tag%%%%level_name%%%%end_tag%% [%%channel%%] %%start_tag%%%%message%%%%end_tag%% %%context%%\n"
+                colors: true
+                date_format: 'Y-m-d H:i:s'
+
+    App\Command\PublishTaskCommand:
+        arguments:
+            $producer: '@old_sound_rabbit_mq.task_producer'
+
+    App\Command\PopulateMessageBusCommand:
+        arguments:
+            $producer: '@old_sound_rabbit_mq.message_bus_producer'

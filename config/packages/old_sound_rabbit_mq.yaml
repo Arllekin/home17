@@ -30,3 +30,14 @@ old_sound_rabbit_mq:
                 routing_keys:
                     - '#'
             callback: App\Consumer\DefaultConsumerCallback
+        logger:
+            connection: default
+            exchange_options:
+                name: 'message_bus'
+                type: topic
+                arguments: { 'alternate-exchange': [ 'S', 'message_bus_dead_letter' ] }
+            queue_options:
+                name: 'logger'
+                routing_keys:
+                    - 'log.#'
+            callback: App\Consumer\DefaultConsumerCallback

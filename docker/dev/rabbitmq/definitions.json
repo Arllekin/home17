@@ -48,6 +48,20 @@
       "durable": true,
       "auto_delete": false,
       "arguments": {}
+    },
+    {
+      "name": "message_bus_dead_letter",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
+    },
+    {
+      "name": "logger",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {}
     }
   ],
   "exchanges": [
@@ -59,9 +73,45 @@
       "auto_delete": false,
       "internal": false,
       "arguments": {}
+    },
+    {
+      "name": "message_bus_dead_letter",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "message_bus",
+      "vhost": "/",
+      "type": "topic",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {
+        "alternate-exchange": "message_bus_dead_letter"
+      }
     }
   ],
   "bindings": [
+    {
+      "source": "message_bus",
+      "vhost": "/",
+      "destination": "logger",
+      "destination_type": "queue",
+      "routing_key": "log.#",
+      "arguments": {}
+    },
+    {
+      "source": "message_bus_dead_letter",
+      "vhost": "/",
+      "destination": "message_bus_dead_letter",
+      "destination_type": "queue",
+      "routing_key": "#",
+      "arguments": {}
+    },
     {
       "source": "task",
       "vhost": "/",

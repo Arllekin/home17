@@ -34,6 +34,14 @@ export DOCKER_COMPOSE__USER_ID=1000
 export DOCKER_COMPOSE__GROUP_ID=1000
 ```
 
+You need to rebuild docker images to apply new user ID
+```bash
+# Stop containers
+docker-compose down
+# Build docker images
+docker-compose build
+```
+
 # Example how application works
 
 ```bash

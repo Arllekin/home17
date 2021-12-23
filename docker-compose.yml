@@ -4,7 +4,6 @@ services:
         restart: always
         image: rabbitmq:3.9.7-management
         hostname: rabbitmq
-        # !!! Use docker-compose.override.yml to bind ports
         volumes:
             # https://stackoverflow.com/a/62026712
             # https://hub.docker.com/_/rabbitmq Chapter "Additional Configuration"

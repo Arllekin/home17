@@ -4,7 +4,7 @@
 # run docker composer services
 docker-compose up -d
 # exec php container
-docker-compose exec php bash
+
 # install dependencies inside `php` container
 composer install
 # run console inside `php` container 
@@ -17,7 +17,9 @@ bin/console
 cp docker-compose.override.example.yml docker-compose.override.yml
 ```
 
-RabbitMQ Management UI (user: guest, password: guest): http://localhost:15672/
+RabbitMQ Management UI (user: guest, password: guest):  http://localhost:15672/
+bin/console hillel:message-bus:populate -vvv
+bin/console rabbitmq:consumer logger -vvv
 
 # How to change user ID in php docker container
 
@@ -51,6 +53,7 @@ student@hillel-php-advanced-2021[docker][/app]: bin/console hillel:task:publish 
 
 student@hillel-php-advanced-2021[docker][/app]: bin/console rabbitmq:consumer task -vvv
 2021-10-16 15:27:06 INFO      [app] Received message  ["message_body_raw" => "Hello, RabbitMQ World!"]
+bin/console hillel:message-bus:populate -vvv
 ```
 
 # Tips

@@ -40,4 +40,26 @@ old_sound_rabbit_mq:
                 name: 'logger'
                 routing_keys:
                     - 'log.#'
-            callback: App\Consumer\DefaultConsumerCallback
+            callback: App\Consumer\LogerConsumerCallback
+        entries:
+            connection: default
+            exchange_options:
+                name: 'message_bus'
+                type: topic
+                arguments: { 'alternate-exchange': [ 'S', 'message_bus_dead_letter' ] }
+            queue_options:
+                name: 'entries'
+                routing_keys:
+                    - 'event.brand.#'
+            callback: App\Consumer\EntriesConsumerCallback
+        qohIs:
+            connection: default
+            exchange_options:
+                name: 'message_bus'
+                type: topic
+                arguments: { 'alternate-exchange': [ 'S', 'message_bus_dead_letter' ] }
+            queue_options:
+                name: 'qohIs'
+                routing_keys:
+                    - 'event.product.#'
+            callback: App\Consumer\QohIsConsumerCallback

@@ -36,4 +36,4 @@ class DefaultConsumerCallback implements ConsumerInterface
 
         return ConsumerInterface::MSG_ACK;
     }
-}
+};

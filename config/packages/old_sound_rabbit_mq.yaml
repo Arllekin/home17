@@ -50,7 +50,7 @@ old_sound_rabbit_mq:
             queue_options:
                 name: 'entries'
                 routing_keys:
-                    - 'event.brand.#'
+                    - '#.created'
             callback: App\Consumer\EntriesConsumerCallback
         qohIs:
             connection: default
@@ -61,5 +61,5 @@ old_sound_rabbit_mq:
             queue_options:
                 name: 'qohIs'
                 routing_keys:
-                    - 'event.product.#'
+                    - '#.product.updated'
             callback: App\Consumer\QohIsConsumerCallback
